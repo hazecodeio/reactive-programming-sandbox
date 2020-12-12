@@ -1,0 +1,14 @@
+=== With Subtrees
+- Add a new subtree:
+
+ $ git subtree add --prefix reactive-essentials/reactor-project-solution https://github.com/reactor/lite-rx-api-hands-on.git master --squash
+
+
+- Pull/Merge to an existing subtree ## ToDo:
+
+ $ git subtree [pull|merge] --prefix reactive-essentials/reactor-project-solution
+
+
+=== With submodules
+
+ $ git clone -b [branch_name] --recurse-submodules [repo_url] [path_where_submodule_will_be_fetched_onto]
