@@ -1,0 +1,3 @@
+git subtree add --prefix reactive-essentials/reactor-project-solution https://github.com/reactor/lite-rx-api-hands-on.git master --squash
+
+git clone -b [branch_name] --recurse-submodules [repo_url] [path_where_submodule_will_be_fetched_onto]
