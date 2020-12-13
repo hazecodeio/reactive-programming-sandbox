@@ -1,6 +1,9 @@
 package io.pivotal.literx;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.BlockingUserRepository;
@@ -38,7 +41,10 @@ public class Part11BlockingToReactiveTest {
 	public void slowPublisherFastSubscriber() {
 		BlockingUserRepository repository = new BlockingUserRepository();
 		Flux<User> flux = workshop.blockingRepositoryToFlux(repository);
-		assertThat(repository.getCallCount()).isEqualTo(0).withFailMessage("The call to findAll must be deferred until the flux is subscribed");
+		assertThat(repository.getCallCount())
+				.isEqualTo(0)
+				.withFailMessage("The call to findAll must be deferred until the flux is subscribed");
+
 		StepVerifier.create(flux)
 				.expectNext(User.SKYLER, User.JESSE, User.WALTER, User.SAUL)
 				.verifyComplete();
@@ -50,16 +56,25 @@ public class Part11BlockingToReactiveTest {
 	public void fastPublisherSlowSubscriber() {
 		ReactiveRepository<User> reactiveRepository = new ReactiveUserRepository();
 		BlockingUserRepository blockingRepository = new BlockingUserRepository(new User[]{});
+
 		Mono<Void> complete = workshop.fluxToBlockingRepository(reactiveRepository.findAll(), blockingRepository);
-		assertThat(blockingRepository.getCallCount()).isEqualTo(0);
+		assertThat(blockingRepository.getCallCount())
+				.isEqualTo(0);
+
 		StepVerifier.create(complete)
 				.verifyComplete();
-		Iterator<User> it = blockingRepository.findAll().iterator();
+
+		Iterable<User> iterableUser = blockingRepository.findAll();
+		Iterator<User> it = iterableUser.iterator();
 		assertThat(it.next()).isEqualTo(User.SKYLER);
 		assertThat(it.next()).isEqualTo(User.JESSE);
 		assertThat(it.next()).isEqualTo(User.WALTER);
 		assertThat(it.next()).isEqualTo(User.SAUL);
 		assertThat(it.hasNext()).isFalse();
+
+		// Alternatively, We can convert Iteratable to List via Java's Streams
+		List<User> collectedUsers = StreamSupport.stream(iterableUser.spliterator(), false).collect(Collectors.toList());
+		assertThat(collectedUsers).containsExactly(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
 	}
 
 }
