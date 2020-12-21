@@ -53,7 +53,7 @@ public class Part06RequestTest {
 
 	@Test
 	public void requestOneByOne() {
-		Flux<User> flux = repository.findAll();
+		Flux<User> flux = repository.findAll(); // returns more than 2
 		StepVerifier verifier = workshop.requestOneExpectSkylerThenRequestOneExpectJesse(flux);
 		verifier.verify();
 	}

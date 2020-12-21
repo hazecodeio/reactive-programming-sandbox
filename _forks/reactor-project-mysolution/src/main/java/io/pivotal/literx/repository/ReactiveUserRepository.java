@@ -1,14 +1,14 @@
 package io.pivotal.literx.repository;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import io.pivotal.literx.domain.User;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ReactiveUserRepository implements ReactiveRepository<User> {
 

@@ -1,6 +1,9 @@
 package io.pivotal.literx;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import io.pivotal.literx.domain.User;
 import io.pivotal.literx.repository.ReactiveRepository;
@@ -42,6 +45,11 @@ public class Part10ReactiveToBlockingTest {
 		assertThat(it.next()).isEqualTo(User.WALTER);
 		assertThat(it.next()).isEqualTo(User.SAUL);
 		assertThat(it.hasNext()).isFalse();
+
+		// Alternatively, We can convert Iteratable to List via Java's Streams
+		List<User> collectedUsers = StreamSupport.stream(users.spliterator(), false).collect(Collectors.toList());
+		assertThat(collectedUsers).containsExactly(User.SKYLER, User.JESSE, User.WALTER, User.SAUL);
+
 	}
 
 }
