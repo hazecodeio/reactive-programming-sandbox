@@ -1,1 +1,2 @@
 git subtree pull --prefix _forks/reactor-project-mysolution https://github.com/reactor/lite-rx-api-hands-on.git master
+git subtree pull --prefix _forks/hands-on-reactive-programming-with-reactor https://github.com/PacktPublishing/Hands-On-Reactive-Programming-with-Reactor.git master
