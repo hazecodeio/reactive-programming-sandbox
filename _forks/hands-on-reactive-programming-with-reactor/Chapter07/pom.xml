@@ -9,7 +9,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Chapter01</artifactId>
+    <artifactId>Chapter07</artifactId>
     <build>
         <sourceDirectory>reactorService/src/main/java</sourceDirectory>
         <testSourceDirectory>reactorService/src/test/java</testSourceDirectory>
